@@ -19,10 +19,15 @@ router.post("/signup", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
-  const token = await USER.matchPassword(email, password);
+  const token = await USER.matchPasswordAndGenerateToken(email, password);
   if (!token)
-    return res.status(401).json({ message: "Invalid email or password" });
-  return res.cookie('authToken',token).status(200).json({ message: "Login successful" });
+     return res.status(401).json({ success: false, message: "Invalid email or password" });
+
+  return res.cookie('authToken',token,{
+  httpOnly: false,  
+  secure: false,    
+  sameSite: "lax",  
+}).redirect("/");
 });
 
 export default router;

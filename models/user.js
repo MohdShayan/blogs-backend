@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { createHmac, randomBytes } from "node:crypto";
-import { createTokenForUser } from "../auth";
+import { createTokenForUser } from "../services.js";
 
 const userSchema = new mongoose.Schema(
   {
