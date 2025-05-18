@@ -1,5 +1,6 @@
 import express from 'express';
 import multer from 'multer';
+import { createBlogPost, getAllBlogPosts } from '../controllers/blog';
 
 const router = express.Router();
 
@@ -20,4 +21,5 @@ router.get('/', (req, res) => {
 });
 
 
-router.post('/upload', upload.single('coverImage'), (req, res) => {});
+router.post('/upload', upload.single('coverImage'), createBlogPost);
+router.post('/blogs',  getAllBlogPosts);

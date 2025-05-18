@@ -14,20 +14,25 @@ router.post("/signup", async (req, res) => {
     password,
   });
 
-  return res.redirect("/");
+  return res.json({ success: true, message: "User created successfully" });
 });
 
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
+
   const token = await USER.matchPasswordAndGenerateToken(email, password);
+
   if (!token)
-     return res.status(401).json({ success: false, message: "Invalid email or password" });
+    return res
+      .status(401)
+      .json({ success: false, message: "Invalid email or password" });
 
-  return res.cookie('authToken',token,{
-  httpOnly: false,  
-  secure: false,    
-  sameSite: "lax",  
-}).redirect("/");
+  return res
+    .cookie("authToken", token, {
+      httpOnly: false,
+      secure: false,
+      sameSite: "lax",
+    })
+    .json({ success: true, message: "Login successful" });
 });
-
 export default router;

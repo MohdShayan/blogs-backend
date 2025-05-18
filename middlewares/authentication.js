@@ -1,4 +1,4 @@
-import { validateToken } from "../services";
+import { validateToken } from "../services.js";
 
 export function checkForAuthCookie(cookieName) {
 return(req, res, next) => {
@@ -11,8 +11,6 @@ return(req, res, next) => {
         req.user = payload;
         
     } catch (error) {}
-
-      next();
     
     return next();
   }
