@@ -7,6 +7,7 @@ dotenv.config();
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import { checkForAuthCookie } from "./middlewares/authentication.js";
+import blogRoutes from "./routes/blog.js";
 
 app.use(cors(
   {
@@ -21,6 +22,7 @@ app.use(checkForAuthCookie("authToken"));
 
 
 app.use("/user", userRoutes);
+app.use("/api",blogRoutes);
 app.get("/", (req, res) => {
   res.send("Hello irfnorfmfrm World");
 });
