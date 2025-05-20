@@ -8,7 +8,7 @@ const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, './uploads/');
     },
-    filename: (req,res,next) => {
+    filename: (req,file,cb) => {
         const fileName = `${Date.now()}-${file.originalname}`;
         cb(null, fileName);
     }
@@ -22,6 +22,6 @@ router.get('/', (req, res) => {
 
 
 router.post('/upload', upload.single('coverImage'), createBlogPost);
-router.post('/blogs',  getAllBlogPosts);
+router.get('/blogs',  getAllBlogPosts);
 
 export default router;

@@ -19,10 +19,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(checkForAuthCookie("authToken"));
+app.use("/uploads", express.static("uploads"));
 
 
 app.use("/user", userRoutes);
 app.use("/api",blogRoutes);
+
 app.get("/", (req, res) => {
   res.send("Hello irfnorfmfrm World");
 });

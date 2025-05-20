@@ -2,30 +2,39 @@
 import BLOG from "../models/blogs.js";
 
 export const createBlogPost = async (req, res) => {
-    const {title,body} = req.body;
 
-    try {
-        const blogPost = await BLOG.create({
-            title,
-            body,
-            coverImageURL:`/uploads/${req.file.filename}`,
-            createdBy: req.user._id
-        });
+  const { title, body } = req.body;
+ 
+  if (!req.file) {
+    return res.status(400).json({
+      status: "fail",
+      message: "Cover image file is required."
+    });
+  }
 
-        return res.status(201).json({
-            status: "success",
-            data: {
-                blogPost
-            }
-        });
+  try {
+    const blogPost = await BLOG.create({
+      title,
+      body,
+      coverImageURL: `/uploads/${req.file.filename}`,
+      createdBy: req.user.id   
+    });
 
-    } catch (error) {
-        return res.status(500).json({
-            status: "fail",
-            message: error.message
-        });
-    }
-}
+    return res.status(201).json({
+      status: "success",
+      data: {
+        blogPost
+      }
+    });
+
+  } catch (error) {
+    return res.status(500).json({
+      status: "fail",
+      message: error.message
+    });
+  }
+};
+
 
 export const getAllBlogPosts = async (req, res) => {
     try {
