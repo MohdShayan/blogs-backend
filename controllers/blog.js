@@ -54,3 +54,31 @@ export const getAllBlogPosts = async (req, res) => {
         });
     }
 }
+
+export const getBlogById = async (req, res) => {
+    const { blogId } = req.params;
+
+    try {
+        const blogPost = await BLOG.findById(blogId).populate("createdBy", "name email");
+
+        if (!blogPost) {
+            return res.status(404).json({
+                status: "fail",
+                message: "Blog post not found"
+            });
+        }
+
+        return res.status(200).json({
+            status: "success",
+            data: {
+                blogPost
+            }
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            status: "fail",
+            message: error.message
+        });
+    }
+} 
