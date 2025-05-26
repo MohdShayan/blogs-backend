@@ -6,6 +6,7 @@ import { connectDB } from "./ConnectDB.js";
 dotenv.config();
 import cors from "cors";
 import cookieParser from "cookie-parser";
+
 import { checkForAuthCookie } from "./middlewares/authentication.js";
 import blogRoutes from "./routes/blog.js";
 

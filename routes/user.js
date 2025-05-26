@@ -33,6 +33,33 @@ router.post("/login", async (req, res) => {
       secure: false,
       sameSite: "lax",
     })
-    .json({ success: true, message: "Login successful" });
+    .json({ success: true, message: "Login successful",user: req.user });
 });
+
+router.get("/logout", async (req, res)  => {
+  res
+    .clearCookie("authToken", {
+      httpOnly: false,
+      secure: false,
+      sameSite: "lax",
+    })
+    .json({ success: true, message: "Logout successful" });
+});
+
+router.get("/me", async (req, res) => {
+  const user = req.user;
+
+  if (!user) {
+    return res.status(401).json({ success: false, message: "Unauthorized" });
+  }
+
+  try {
+    const dbUser = await USER.findById(user.id);
+    return res.json({ success: true, user: dbUser });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+
 export default router;
