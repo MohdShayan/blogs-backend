@@ -37,23 +37,25 @@ export const createBlogPost = async (req, res) => {
 
 
 export const getAllBlogPosts = async (req, res) => {
-    try {
-        const allBlogs = await BLOG.find({}).sort({createdAt: -1});
+  try {
+    const allBlogs = await BLOG.find({})
+      .populate("createdBy") 
+      .sort({ createdAt: -1 });
 
-        return res.status(200).json({
-            status: "success",
-            data: {
-                allBlogs
-            }
-        });
+    return res.status(200).json({
+      status: "success",
+      data: {
+        allBlogs,
+      },
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: "fail",
+      message: error.message,
+    });
+  }
+};
 
-    } catch (error) {
-        return res.status(500).json({
-            status: "fail",
-            message: error.message
-        });
-    }
-}
 
 export const getBlogById = async (req, res) => {
     const { blogId } = req.params;
@@ -82,3 +84,24 @@ export const getBlogById = async (req, res) => {
         });
     }
 } 
+
+
+export const getMyBlogs = async (req, res) => {
+  try {
+    const myBlogs = await BLOG.find({ createdBy: req.user.id })
+      .populate("createdBy")
+      .sort({ createdAt: -1 });
+
+    return res.status(200).json({
+      status: "success",
+      data: {
+        myBlogs,
+      },
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: "fail",
+      message: error.message,
+    });
+  }
+}

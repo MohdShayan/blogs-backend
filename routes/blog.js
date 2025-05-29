@@ -4,6 +4,7 @@ import {
   createBlogPost,
   getAllBlogPosts,
   getBlogById,
+  getMyBlogs,
 } from "../controllers/blog.js";
 
 import COMMENT from "../models/comments.js";
@@ -30,6 +31,7 @@ router.get("/", (req, res) => {
 router.post("/upload", upload.single("coverImage"), createBlogPost);
 router.get("/blogs", getAllBlogPosts);
 router.get("/blogs/:blogId", getBlogById);
+router.get("/myblogs",getMyBlogs);
 
 
 router.post("/comment/:blogId", async (req, res) => {
