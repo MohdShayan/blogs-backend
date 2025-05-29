@@ -9,26 +9,27 @@ import {
 
 import COMMENT from "../models/comments.js";
 import BLOG from "../models/blogs.js";
+import { uploadImage } from "../utils/multer.js";
 
 const router = express.Router();
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "./uploads/");
-  },
-  filename: (req, file, cb) => {
-    const fileName = `${Date.now()}-${file.originalname}`;
-    cb(null, fileName);
-  },
-});
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "./uploads/");
+//   },
+//   filename: (req, file, cb) => {
+//     const fileName = `${Date.now()}-${file.originalname}`;
+//     cb(null, fileName);
+//   },
+// });
 
-const upload = multer({ storage: storage });
+// const upload = multer({ storage: storage });
 
-router.get("/", (req, res) => {
-  res.send("Blog route");
-});
+// router.get("/", (req, res) => {
+//   res.send("Blog route");
+// });
 
-router.post("/upload", upload.single("coverImage"), createBlogPost);
+router.post("/upload", uploadImage, createBlogPost);
 router.get("/blogs", getAllBlogPosts);
 router.get("/blogs/:blogId", getBlogById);
 router.get("/myblogs",getMyBlogs);

@@ -1,6 +1,6 @@
 import multer from "multer";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
-import cloudinary from "../middleware/cloudinary.js";
+import cloudinary from "./cloudinary.js"; 
 
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
@@ -13,4 +13,4 @@ const storage = new CloudinaryStorage({
 
 const upload = multer({ storage });
 
-export const uploadImages = upload.single("blog-image");
+export const uploadImage = upload.single("coverImage");
