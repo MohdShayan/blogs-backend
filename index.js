@@ -10,6 +10,9 @@ import BlogScheduler from './controllers/publish-blog.js';
 
 import { checkForAuthCookie } from "./middlewares/authentication.js";
 import blogRoutes from "./routes/blog.js";
+import e from "express";
+
+const PORT = process.env.PORT || 3000;
 
 app.use(cors(
   {
@@ -28,11 +31,13 @@ app.use("/user", userRoutes);
 app.use("/api",blogRoutes);
 
 app.get("/", (req, res) => {
-  res.send("Hello irfnorfmfrm World");
+  res.send("Hello World Server is running");
 });
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
   connectDB();
   BlogScheduler();
-  console.log("Server started at http://localhost:3000");
+  console.log("Server started at http://localhost:" + PORT);
 });
+
+export default app;
