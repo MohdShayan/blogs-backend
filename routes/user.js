@@ -38,9 +38,11 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/logout", async (req, res)  => {
-  res
-    .clearCookie("authToken")
-    .json({ success: true, message: "Logout successful" });
+  res.clearCookie("authToken", {
+  httpOnly: true,
+  sameSite: "None",
+  secure: true
+}).json({ success: true, message: "Logout sucFcessful" });
 });
 
 router.get("/me", async (req, res) => {
