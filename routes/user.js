@@ -1,6 +1,7 @@
 import express from "express";
 import USER from "../models/user.js";
 const router = express.Router();
+import CryptoJS from "crypto-js";
 
 router.get("/user", (req, res) => {
   res.send("Hello router World");
@@ -61,5 +62,13 @@ router.get("/me", async (req, res) => {
   }
 });
 
+
+router.post('/api/save-key',  async (req, res) => {
+  const { groqApiKey } = req.body;
+  const encryptedKey = CryptoJS.AES.encrypt(groqApiKey, process.env.SECRET_KEY).toString();
+
+  await USER.findByIdAndUpdate(req.user.id, { encryptedGroqKey: encryptedKey });
+  res.json({ success: true, message: "API key saved securely." });
+});
 
 export default router;

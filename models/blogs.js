@@ -12,12 +12,21 @@ const blogSchema = new mongoose.Schema(
     },
     coverImageURL: {
       type: String,
-      default: "",
+      default: "https://res.cloudinary.com/dhcigrzzz/image/upload/v1748772424/aetcloud_g5yd88.png",
     },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
     },
+    status: {
+    type: String,
+    enum: ["draft", "scheduled", "published"],
+    default: "published",
+    },
+    publishAt: {
+    type: Date,
+    required: false,
+},
   },
   { timestamps: true }
 );

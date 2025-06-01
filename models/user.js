@@ -29,6 +29,10 @@ const userSchema = new mongoose.Schema(
       enum: ["USER", "ADMIN"],
       default: "USER",
     },
+     encryptedGroqKey: {
+      type: String,
+     },
+  
   },
   { timestamps: true }
 );

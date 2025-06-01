@@ -6,6 +6,7 @@ import { connectDB } from "./ConnectDB.js";
 dotenv.config();
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import BlogScheduler from './controllers/publish-blog.js';
 
 import { checkForAuthCookie } from "./middlewares/authentication.js";
 import blogRoutes from "./routes/blog.js";
@@ -32,5 +33,6 @@ app.get("/", (req, res) => {
 
 app.listen(3000, () => {
   connectDB();
+  BlogScheduler();
   console.log("Server started at http://localhost:3000");
 });

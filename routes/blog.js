@@ -5,6 +5,8 @@ import {
   getAllBlogPosts,
   getBlogById,
   getMyBlogs,
+  HandleScheduleBlog,
+  getAllScheduledBlogs
 } from "../controllers/blog.js";
 
 import COMMENT from "../models/comments.js";
@@ -13,26 +15,15 @@ import { uploadImage } from "../utils/multer.js";
 
 const router = express.Router();
 
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, "./uploads/");
-//   },
-//   filename: (req, file, cb) => {
-//     const fileName = `${Date.now()}-${file.originalname}`;
-//     cb(null, fileName);
-//   },
-// });
 
-// const upload = multer({ storage: storage });
-
-// router.get("/", (req, res) => {
-//   res.send("Blog route");
-// });
 
 router.post("/upload", uploadImage, createBlogPost);
 router.get("/blogs", getAllBlogPosts);
 router.get("/blogs/:blogId", getBlogById);
 router.get("/myblogs",getMyBlogs);
+
+router.post('/schedule-blog',HandleScheduleBlog);
+router.get('/scheduled',getAllScheduledBlogs);
 
 
 router.post("/comment/:blogId", async (req, res) => {
@@ -113,3 +104,24 @@ router.get("/comment/:blogId", async (req, res) => {
 
 
 export default router;
+
+
+
+
+
+
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "./uploads/");
+//   },
+//   filename: (req, file, cb) => {
+//     const fileName = `${Date.now()}-${file.originalname}`;
+//     cb(null, fileName);
+//   },
+// });
+
+// const upload = multer({ storage: storage });
+
+// router.get("/", (req, res) => {
+//   res.send("Blog route");
+// });
