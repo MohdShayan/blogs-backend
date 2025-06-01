@@ -89,7 +89,7 @@ export const getBlogById = async (req, res) => {
 
 export const getMyBlogs = async (req, res) => {
   try {
-    const myBlogs = await BLOG.find({ createdBy: req.user.id })
+    const myBlogs = await BLOG.find({ createdBy: req.user.id, status: "published" })
       .populate("createdBy")
       .sort({ createdAt: -1 });
 
