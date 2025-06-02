@@ -184,7 +184,7 @@ export async function HandleScheduleBlog(req, res) {
       body: generatedText,
       createdBy: userId,
       status: "scheduled",
-      publishAt: new Date(publishAt),
+      publishAt: moment.tz(publishAt, "Asia/Kolkata").toDate(),
     });
 
     return res.status(201).json({ success: true, blog: newBlog });
