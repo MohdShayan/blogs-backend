@@ -10,7 +10,10 @@ return(req, res, next) => {
         const payload = validateToken(token);
         req.user = payload;
         
-    } catch (error) {}
+    } catch (error) {
+      console.error("Invalid token:", error);
+      return res.status(401).json({ error: "Unauthorized" });
+    }
     
     return next();
   }

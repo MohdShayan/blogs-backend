@@ -30,8 +30,8 @@ router.post("/login", async (req, res) => {
 
   return res
     .cookie("authToken", token, {
-      httpOnly: true,      // Prevents client-side access
-      sameSite: "None",    // Allows cross-site usage
+      httpOnly: true,      
+      sameSite: "None",    
       secure: true         
     })
     .json({ success: true, message: "Login successful",user: req.user });
