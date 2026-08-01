@@ -2,7 +2,7 @@ import cron from 'node-cron';
 import BLOG from '../models/blogs.js';
 
 function BlogScheduler() {
-  cron.schedule('0 */6 * * *', async () => {
+  cron.schedule('* * * * *', async () => {
     const now = new Date();
     const blogsToPublish = await BLOG.find({
       status: 'scheduled',
